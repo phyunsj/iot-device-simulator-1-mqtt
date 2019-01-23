@@ -18,3 +18,8 @@ Example flow
 <p align="center">
 <img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-editor.png" width="600px"/>
 </p>
+
+#### See Also :
+
+- [AWS IoT Device Simulator](https://aws.amazon.com/answers/iot/iot-device-simulator/)
+- [LOSANT IoT Device Simulator](https://docs.losant.com/devices/simulator/)
