@@ -5,7 +5,7 @@ A node to generate(or simulate) typical IoT data for a testing purpose. Original
 ## In Action
 
 <p align="center">
-<img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-action.gif" width="700px"/>
+<img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-action-text.gif" width="700px"/>
 </p>
 
 Example flow 
