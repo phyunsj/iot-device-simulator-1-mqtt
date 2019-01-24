@@ -19,6 +19,12 @@ Example flow
 <img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-editor.png" width="700px"/>
 </p>
 
+## IoT Simulator + [flespi MQTT Broker](https://flespi.com/mqtt-broker)
+
+<p align="center">
+<img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-mqtt.gif" width="700px"/>
+</p>
+
 #### See Also :
 
 - [AWS IoT Device Simulator](https://aws.amazon.com/answers/iot/iot-device-simulator/)
