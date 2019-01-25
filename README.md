@@ -15,7 +15,7 @@ Example flow
 
 ## IoT Simulator + [flespi MQTT Broker](https://flespi.com/mqtt-broker)
 
-- To support MQTT over websocket,
+- Install `mqtt-plus` (MQTT over websocket),
 
 ```
 git clone https://github.com/btsimonh/node-red-contrib-mqtt-plus
@@ -23,7 +23,7 @@ cd ~/.node-red
 npm install <download>/node-red-contrib-mqtt-plus
 ```
 
-- Publisher Topic `ny-10001/sensor1` from Node-RED MQTT.
+- Publisher Topic `ny-10001/sensor1` from Node-RED MQTT output node
 - Subscriber Topic `ny-10001/#` (use  `#` multi-level wildcard or `+` single-level wildcard)  from flespi MQTT Broker Panel
 
 <p align="center">
