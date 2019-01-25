@@ -46,7 +46,7 @@ npm install <download>/node-red-contrib-mqtt-plus
 #### Related Posts :
 
 - [Node-RED:Creating Nodes](https://nodered.org/docs/creating-nodes/)
-- [flespi MQTT](https://flespi.com/mqtt-broker). Others ( [cloudMQTT](https://www.cloudmqtt.com/). [HiveMQ](https://www.hivemq.com/) )
+- [flespi MQTT](https://flespi.com/mqtt-broker) (Other options: [cloudMQTT](https://www.cloudmqtt.com/), [HiveMQ](https://www.hivemq.com/) )
 - [node-red-contrib-mqtt-plus](https://github.com/btsimonh/node-red-contrib-mqtt-plus)
 
 #### See Also :
