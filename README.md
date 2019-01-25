@@ -1,4 +1,4 @@
-# IoT Device Simulator with Node-RED
+# IoT Device Simulator with Node-RED + MQTT Broker
 
 A node to generate(or simulate) typical IoT data for a testing purpose. Originally consider [Subflow](https://nodered.org/docs/user-guide/editor/workspace/subflows) but decide to create a new one instead (NOTE : _a subflow cannot contain an instance of itself_). Basic design idea (Add/Remove parameters) was from [`ui_form`](https://github.com/node-red/node-red-dashboard/blob/master/nodes/ui_form.html) from [`node-red-dashboard`](https://github.com/node-red/node-red-dashboard). 
 
