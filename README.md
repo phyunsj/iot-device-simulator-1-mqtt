@@ -25,6 +25,12 @@ Example flow
 <img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-mqtt.gif" width="700px"/>
 </p>
 
+#### Related Posts :
+
+- [Node-RED:Creating Nodes](https://nodered.org/docs/creating-nodes/)
+- [flespi MQTT](https://flespi.com/mqtt-broker). Others ( [cloudMQTT](https://www.cloudmqtt.com/). [HiveMQ](https://www.hivemq.com/) )
+- [node-red-contrib-mqtt-plus](https://github.com/btsimonh/node-red-contrib-mqtt-plus)
+
 #### See Also :
 
 - [AWS IoT Device Simulator](https://aws.amazon.com/answers/iot/iot-device-simulator/)
