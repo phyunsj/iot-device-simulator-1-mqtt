@@ -2,7 +2,7 @@
 
 Create a node to generate(or simulate) typical IoT data (Number, String) for a testing purpose. Originally consider [Subflow](https://nodered.org/docs/user-guide/editor/workspace/subflows) but decide to create a new one instead (NOTE : _a subflow cannot contain an instance of itself_). Basic design idea (Add/Remove parameters) was from [`ui_form`](https://github.com/node-red/node-red-dashboard/blob/master/nodes/ui_form.html) from [`node-red-dashboard`](https://github.com/node-red/node-red-dashboard). 
 
-## IoT Simulator + Dashboard
+## First, IoT Simulator + Dashboard
 
 <p align="center">
 <img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-action-text.gif" width="700px"/>
@@ -24,13 +24,13 @@ npm install <download>/node-red-contrib-mqtt-plus
 ```
 
 1. Publisher Topic `ny-10001/sensor1` from Node-RED MQTT.
-2. Subscriber Topic `ny-10001/#`
+2. Subscriber Topic `ny-10001/#` (use  `#` multi-level wildcard or `+` single-level wildcard)  from flespi MQTT Broker Panel
 
 <p align="center">
 <img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-mqtt.gif" width="700px"/>
 </p>
 
-3. Connection Settings from MQTT Broker
+3. Connection Settings from flespi MQTT Broker Panel
 
 <p align="center">
 <img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/mqtt_broker_settings.png" width="500px"/>
