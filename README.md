@@ -21,9 +21,27 @@ Example flow
 
 ## IoT Simulator + [flespi MQTT Broker](https://flespi.com/mqtt-broker)
 
+To support MQTT over websocket,
+
+```
+git clone https://github.com/btsimonh/node-red-contrib-mqtt-plus
+cd ~/.node-red
+npm install <download>/node-red-contrib-mqtt-plus
+```
+
+1. Publisher Topic `ny-10001/sensor1` from Node-RED MQTT.
+2. Subscriber Topic `ny-10001/#`
+
 <p align="center">
 <img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-mqtt.gif" width="700px"/>
 </p>
+
+3. Connection Settings from MQTT Broker
+
+<p align="center">
+<img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/mqtt_broker_settings.png" width="500px"/>
+</p>
+
 
 #### Related Posts :
 
