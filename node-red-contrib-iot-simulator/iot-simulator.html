@@ -1,0 +1,251 @@
+<script type="text/javascript">
+    RED.nodes.registerType('iot-simulator',{
+        category: 'output',
+        color: '#a6bbcf',
+        defaults: {
+                   name: { value:""},
+                   options: [{ label :'Default',value: 0, range : 0 }],
+                   preOptions : [],
+                   timestamp : {value:false},
+                   allinone: {value:true},
+                   optionEdited : {value:false}
+                  },
+        inputs:1,
+        outputs:1,
+        icon: "microchip_24.png",
+        label: function() {
+            return this.name||"IoT Simulator";
+        },
+        
+        oneditcancel : function () {// is called when the edit dialog is cancelled.
+            // rollback any changes
+            var options = this.preOptions;
+            var node = this;
+            node.options = [];
+            
+            if ( options.length > 0)
+            for (var i=0; i< options.length; i++) {
+                var option = options[i];
+                var o = {
+                    label:  options[i].label,
+                    value:  options[i].value,
+                    range:  options[i].range
+                };
+                node.options.push(o);
+            }
+        },
+
+        oneditsave: function() { // called when the edit dialog is okayed [Done]
+            var options = $("#node-input-option-container").children();
+            var node = this;
+            node.options = [];
+            options.each(function(i) {
+                var option = $(this);
+                var o = {
+                    label: option.find(".node-input-option-label").val(),
+                    value: option.find(".node-input-option-value").val(),
+                    range: option.find(".node-input-option-range").val()
+                };
+                node.options.push(o);
+            });
+            // compare options and flip 'optionEdited' to enable [Deploy] button
+            if ( JSON.stringify(node.options) !== JSON.stringify(node.preOptions) )
+                 node.optionEdited = !node.optionEdited;
+
+            if ($("#node-input-timestamp").prop('checked')) node.timestamp = true;
+            if ($("#node-input-allinone").prop('checked')) node.allinone = true;
+        },
+        oneditprepare: function() { // is called immediately before the dialog is displayed.            
+            // Deep-copy the current options to control [Cancel] & [Deploy] condition
+            this.preOptions = JSON.parse(JSON.stringify(this.options));
+
+            if (this.timestamp  === undefined) {
+                this.timestamp = false;
+                $("#node-input-timestamp").prop('checked', this.timestamp);
+            } else {
+                if (typeof this.timestamp === "string") this.timestamp = (this.timestamp == 'true');
+                $("#node-input-timestamp").prop('checked', this.timestamp);               
+            }
+
+            if (this.allinone  === undefined) {
+                this.allinone = false;
+                $("#node-input-allinone").prop('checked', this.allinone);
+            } else {
+                if (typeof this.allinone === "string") this.allinone = (this.allinone == 'true');
+                $("#node-input-allinone").prop('checked', this.allinone);
+            }
+
+            function isNumeric(obj){
+                return !isNaN(obj);
+            }
+
+            function generateOption(i, option) {
+
+                var container = $('<li/>',{style:"background: #fff; margin:0; padding:8px 0px 0px; border-bottom: 1px solid #ccc;"});
+                var row = $('<div/>').appendTo(container);
+                var row2 = $('<div/>',{style:"padding-top:5px; padding-left:175px;"}).appendTo(container);
+                var row3 = $('<div/>',{style:"padding-top:5px; padding-left:120px;"}).appendTo(container);
+
+                $('<i style="color:#eee; cursor:move; margin-left:3px;" class="node-input-option-handle fa fa-bars"></i>').appendTo(row);
+
+                /* Label */
+                var labelClass ="node-input-option-label"
+                if (!option.label) { labelClass ="node-input-option-label input-error"; }
+                var labelField = $('<input/>',{class: labelClass,type:"text",style:"margin-left:7px; width:30%;", placeholder: 'e.g. Temperature', value:option.label}).appendTo(row);
+                labelField.keyup(function() {
+
+                    option.label = $(this).val();
+                    if ($(this).val() && $(this).hasClass('input-error')) {
+                        $(this).removeClass('input-error')
+                    }
+
+                    if ( !$(this).val() && !$(this).hasClass('input-error')) {
+                        $(this).addClass('input-error')
+                    }
+
+                });
+
+                /* Value */
+                var valueClass ="node-input-option-value"
+                if (!option.value) { valueClass ="node-input-option-value input-error"; }
+                var valueField = $('<input/>',{class:valueClass,type:"text",style:"margin-left: 7px; width: 30%;", placeholder: '0.0',value:option.value}).appendTo(row);
+                valueField.keyup(function() {
+
+                    option.value = $(this).val();
+                    if ($(this).val() && $(this).hasClass('input-error')) {
+                        $(this).removeClass('input-error')
+                    }
+                    if ( !$(this).val() && !$(this).hasClass('input-error')) {
+                        $(this).addClass('input-error')
+                    }
+                });
+
+                /* (+-) Range */
+                var rangeClass ="node-input-option-range"
+                //if (!option.value) { rangeClass ="node-input-option-range"; }
+                var rangeField = $('<input/>',{class:rangeClass,type:"text",style:"margin-left: 7px; width: 25%;", placeholder: '0.0',value:option.range}).appendTo(row);
+                rangeField.keyup(function() {
+
+                    option.range = $(this).val();
+                });
+
+                var finalspan = $('<div/>',{style:"display:inline-block; width:5%;"}).appendTo(row);
+
+                /* remove [x] */
+                var deleteButton = $('<a/>',{href:"#",class:"editor-button editor-button-small", style:"left:45%; position:relative;"}).appendTo(finalspan);
+                $('<i/>',{class:"fa fa-remove"}).appendTo(deleteButton);
+                deleteButton.click(function() {
+
+                    container.find(".node-input-option-value").removeAttr('required')
+                    container.css({"background":"#fee"});
+                    container.fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                });
+
+                $("#node-input-option-container").append(container);
+            }
+
+            $("#node-input-add-parameter").click(function() {
+                generateOption($("#node-input-option-container").children().length+1,  {label :'Default', value: 0, range : 0} );
+                $("#node-input-option-container-div").scrollTop($("#node-input-option-container-div").get(0).scrollHeight);
+            });
+
+            if ( this.options !== undefined )
+              for (var i=0; i<this.options.length; i++) {
+                var option = this.options[i];
+                generateOption(i+1,option);
+              }
+
+            $( "#node-input-option-container" ).sortable({
+                axis: "y",
+                handle:".node-input-option-handle",
+                cursor: "move"
+            });
+        }        
+    });
+</script>
+
+<script type="text/x-red" data-template-name="iot-simulator">
+    
+    <div class="form-row node-input-option-container-row" style="margin-bottom:0px; width:100%; min-width:520px">
+        <label style="vertical-align:top;"><i class="fa fa-list-alt"></i> Group</label>
+        <div style="display:inline-block; width:78%; border:1px solid #ccc; border-radius:5px; box-sizing:border-box;">
+          <div style="width:100%; display: inline-block; background-color:#f3f3f3; padding-top:10px; padding-buttom:10px; border-top:0px solid; border-radius:5px 5px 0 0; border-bottom:1px solid #ccc;">
+              <div style="width:94%; display:inline-block; margin-left:32px">
+                <div style="width:30%; text-align:center; float:left;">Name</div>
+                <div style="width:30%; text-align:center; float:left;">Value</div>
+                <div style="width:25%; text-align:center; float:left;">Value(+-)Range</div>
+                <div style="width:10%; text-align:center; float:left;"><!-- X --></div>
+              </div>
+          </div>
+          <div id="node-input-option-container-div" style=" height: 257px; padding: 5px; overflow-y:scroll;">
+            <ol id="node-input-option-container" style=" list-style-type:none; margin: 0;"></ol>
+          </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <a href="#" class="editor-button editor-button-small" id="node-input-add-parameter" style="margin-top: 4px; margin-left: 103px;"><i class="fa fa-plus"></i> <span>element</span></a>
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-timestamp"><i class="fa fa-random"></i> Options</label>
+        <label for="node-input-timestamp" style="width:70%">
+        <input type="checkbox" id="node-input-timestamp" style="display:inline-block; width:22px; vertical-align:baseline;"> Timestamp</span>
+        </label>
+    </div>
+    <div class="form-row">
+        <label for="node-input-allinone"> </label>
+        <label for="node-input-allinone" style="width:70%">
+        <input type="checkbox" id="node-input-allinone" style="display:inline-block; width:22px; vertical-align:baseline;"> All-in-One</span>
+        </label>
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="iot-simulator">
+    <p>Control IoT parameters to be sent. (Fixed or Simulated)</p>
+    <p>
+        For example,
+         <br>
+        <table style="width:80%" border="1">
+            <tr>
+            <th>Label</th>
+            <th>Value</th> 
+            <th>Range</th>
+            </tr>
+            <tr>
+            <td>Temperature</td>
+            <td>88.7</td> 
+            <td>0</td>
+            </tr>
+            <tr>
+            <td>Humidity</td>
+            <td>30</td> 
+            <td>10</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        If <input type="checkbox" style="display:inline-block; width:22px; vertical-align:baseline;" checked> All-in-One</input>, 
+           
+           <code>{ "Temperature" : 88.7, "Humidity" : X}</code> where <code>30-10 <= X <= 30+10</code> will be sent.
+           <br>
+
+        if <input type="checkbox" style="display:inline-block; width:22px; vertical-align:baseline;"> All-in-One</input>, 
+            
+            <code>{ "Temperature" : 88.7 }</code> will be sent first and
+            <code>{ "Humidity" : X}</code> where <code>30-10 <= X <= 30+10</code> will be sent next.
+            <br>
+
+    </p>
+    <br>
+    <p>If <input type="checkbox" style="display:inline-block; width:22px; vertical-align:baseline;" checked> Timestamp</input>, 
+        <code>{ "timestamp" : xxxxxxx }</code> (the current time in millisecs since January 1st, 1970.) will be added into <code>msg.payload</code></p>
+    
+</script>
