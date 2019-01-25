@@ -46,6 +46,7 @@ npm install <download>/node-red-contrib-mqtt-plus
 
 - [Node-RED:Creating Nodes](https://nodered.org/docs/creating-nodes/)
 - [flespi MQTT](https://flespi.com/mqtt-broker) (Other options: [cloudMQTT](https://www.cloudmqtt.com/), [HiveMQ](https://www.hivemq.com/) )
+- [How to connect ESP8266 to MQTT broker](https://medium.com/@flespi/how-to-connect-esp8266-to-secure-mqtt-broker-know-it-all-and-get-it-done-approach-c33b94f37d88)
 - [node-red-contrib-mqtt-plus](https://github.com/btsimonh/node-red-contrib-mqtt-plus)
 
 #### See Also :
