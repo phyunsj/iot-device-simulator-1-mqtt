@@ -58,6 +58,10 @@ npm install <download>/node-red-contrib-mqtt-plus
 ## IoT Simulator Editor
 
 <p align="center">
+<img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-node.png" width="400px"/>
+</p>
+
+<p align="center">
 <img src="https://github.com/phyunsj/iot-device-simulator-with-node-red/blob/master/images/iot-simulator-editor.png" width="700px"/>
 </p>
 
