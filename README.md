@@ -40,7 +40,13 @@ npm install <download>/node-red-contrib-mqtt-plus
 - `mqtt-plus output node` settings
 
 <p align="center">
-<img src="https://github.com/phyunsj/iot-device-simulator-mqtt/blob/master/images/mqtt-plus-output-node-config.png" width="500px"/>
+<img src="https://github.com/phyunsj/iot-device-simulator-mqtt/blob/master/images/mqtt-plus-output-node-setting.png" width="500px"/>
+</p>
+<p align="center">
+<img src="https://github.com/phyunsj/iot-device-simulator-mqtt/blob/master/images/mqtt-plus-broker-setting.png" width="500px"/>
+</p>
+<p align="center">
+<img src="https://github.com/phyunsj/iot-device-simulator-mqtt/blob/master/images/mqtt-plus-broker-security-setting.png" width="500px"/>
 </p>
 
 - Example Flow
